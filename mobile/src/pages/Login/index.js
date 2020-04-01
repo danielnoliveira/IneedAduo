@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {View,TextInput,TouchableOpacity} from 'react-native';
+import {View,TextInput,Text,TouchableOpacity} from 'react-native';
 import styles from '../Login/styles';
 import global from '../global';
 import {Feather} from '@expo/vector-icons';
@@ -10,6 +10,9 @@ export default function Login(){
     const [password,setPassword] = useState('');
     function navigateBack(){
         navigation.goBack();
+    }
+    function navigateToHomeScreen(){
+        navigation.navigate('Home');
     }
     return(
         <View style={styles.container}>
@@ -33,6 +36,13 @@ export default function Login(){
                     style={styles.input}
                     secureTextEntry={true}
                 />
+                <TouchableOpacity 
+                    style={styles.loginButton}
+                    onPress={navigateToHomeScreen}
+                >
+                    <Feather name="log-in" size={28} color="yellow"/>
+                    <Text style={styles.textLoginButton}>ENTRAR</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

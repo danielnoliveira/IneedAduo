@@ -8,13 +8,16 @@ export default function Initial(){
     function navigateToLoginScreen(){
         navigation.navigate('Login');
     }
+    function navigateToCadastroScreen(){
+        navigation.navigate('Cadastro');
+    }
     return (
         <View style={styles.container}>
             <Text style={styles.title}>I Need a Duo</Text>
             <TouchableOpacity style={[styles.button,{marginBottom:10}]} onPress={navigateToLoginScreen}>
                 <Text style={styles.loginTextButton}>LOGAR</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={()=>{}}>
+            <TouchableOpacity style={styles.button} onPress={navigateToCadastroScreen}>
                 <Text style={styles.cadastroTextButton}>CADASTRAR</Text>
             </TouchableOpacity>
         </View>

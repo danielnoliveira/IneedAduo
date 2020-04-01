@@ -14,6 +14,8 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: 'black',
         marginBottom: 10,
+        borderRadius: 20,
+        marginVertical: 20,
     },
     formSpace: {
         flex: 1,
@@ -21,4 +23,19 @@ export default StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#ecf0f1',
       },
+      loginButton:{
+          backgroundColor: '#000',
+          flexDirection: 'row',
+          alignItems:'center',
+          justifyContent:'space-around',
+          height:50,
+          width:150,
+          paddingHorizontal:15,
+          borderRadius:25,
+          marginVertical:20,
+      },
+      textLoginButton:{
+          color:'yellow',
+          fontWeight: 'bold',
+      }
 });
