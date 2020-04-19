@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import DuoSearchPage from './pages/DuoList';
 function PersonScreen(){
   return(
     <View style={{backgroundColor:'gray', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -39,7 +40,7 @@ export default function App() {
         } else if (route.name === 'Settings') {
           iconName = 'md-settings';
         }else if(route.name=='User'){
-            iconName = 'ios-person';
+          iconName = 'ios-person';
         }
 
         // You can return any component that you like here!
@@ -55,7 +56,7 @@ export default function App() {
     }}
       >
       <Tab.Screen name="User" component={PersonScreen}/>
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={DuoSearchPage} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );
