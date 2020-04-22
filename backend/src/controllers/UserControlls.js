@@ -23,6 +23,13 @@ module.exports = {
         const users = await connection('users').select('*');
         return response.json(users);
     },
+    async getUserByID(request,response){
+        const {id} = request.body;
+        const user = await connection('users')
+        .select('*')
+        .where('id',id);
+        return response,json(user[0]);
+    },
     async create(request,response){
         const {username,role,email,whatsapp,password} = request.body;
         const {data} = await axios.get(`https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}`,{
