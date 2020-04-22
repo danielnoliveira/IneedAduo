@@ -10,4 +10,5 @@ routes.get('/users/search',UserControlls.indexByEloAndRole);
 routes.get('/users',UserControlls.index);
 routes.post('/user',UserControlls.create);
 routes.get('/users/:role',UserControlls.indexRole);
+routes.get('/logar',UserControlls.Logar);
 module.exports = routes;

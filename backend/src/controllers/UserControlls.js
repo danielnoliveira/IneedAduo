@@ -1,7 +1,7 @@
 const axios = require('axios');
 const connection = require('../database/connection');
 const GetRangeTier = require('../utils/GetRangeTier');
-const riot_api = "RGAPI-e4026d31-2f8a-4920-beda-48336b92bcd8";
+const riot_api = "RGAPI-a87b7887-e146-4ce3-869c-be5e77c05a05";
 axios.interceptors.request.use(function (config) {
     // Do something before request is sent
     return config;
@@ -37,10 +37,28 @@ module.exports = {
                 "X-Riot-Token":riot_api,
             }
         });
-        const tier_solo = league[0]["tier"];
-        const rank_solo = league[0]["rank"];
-        const tier_flex = league[1]["tier"];
-        const rank_flex = league[1]["rank"];
+        let tier_solo;
+        let rank_solo;
+        let tier_flex;
+        let rank_flex;
+        if (league.lenght==0) {
+            tier_solo='-';
+            rank_solo='-';
+            tier_flex='-';
+            rank_flex='-';
+        }else{
+            if (league[0]["queueType"]=="RANKED_FLEX_SR") {
+                tier_flex = league[0]['tier'];
+                rank_flex = league[0]["rank"];
+                tier_solo = league[1]["tier"];
+                rank_solo = league[1]["rank"];
+            } else {
+                tier_flex = league[1]['tier'];
+                rank_flex = league[1]["rank"];
+                tier_solo = league[0]["tier"];
+                rank_solo = league[0]["rank"];
+            }
+        }
 
         await connection('users').insert({
             id,
@@ -57,7 +75,7 @@ module.exports = {
             rank_solo,
             tier_solo,
         });
-        return response.json({very:true,id});
+        return response.json({very:true});
     },
     async userExists(request,response){
         const {name} = request.query;
@@ -76,29 +94,46 @@ module.exports = {
     },
     async indexRole(request,response){
         const {role} = request.params;
-        console.log(role);
         const usersByRole = await connection('users').select('*').where('role',role);
         return response.json(usersByRole);
     },
     async indexByEloAndRole(request,response){
-        const {page = 1,role} = request.query;
+        const {page = 1,role,queueType} = request.query;
         const {id} = request.body;
-        const [count] = await connection('users')
-        .count();
+        
+        const queue = queueType=="rankedSoloDuo"?'tier_solo':'tier_flex';
+        
         const fila = await connection('users').
-        select('tier_solo')
+        select(queue)
         .where('id',id);
-        // console.log(fila);
-        const rangeTier = GetRangeTier(fila[0].tier_solo);
-        // console.log(rangeTier);
+        
+        const rangeTier = GetRangeTier(queueType=="rankedSoloDuo"?fila[0].tier_solo:fila[0].tier_flex);
+        const [count] = await connection('users')
+        .select('*')
+        .whereIn(queue,rangeTier)
+        .andWhere('role',role)
+        .andWhereNot('id',id)
+        .count();
+
         const players = await connection('users')
         .limit(5)
         .offset((page-1)*5)
         .select('*')
-        .whereIn('tier_solo',rangeTier)
-        .andWhere('role',role);
+        .whereIn(queue,rangeTier)
+        .andWhere('role',role)
+        .andWhereNot('id',id);
 
         response.header('X-Total-Count',count['count(*)']);
         return response.json(players);
-    }
+    },
+    async Logar(request,response){
+        const {username,password} = request.body;
+        const user = await connection('users')
+        .select('*')
+        .where({
+            username,
+            password
+        });
+        return response.json({"very":user.length==1?true:false});
+    } 
 }
