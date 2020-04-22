@@ -134,6 +134,6 @@ module.exports = {
             username,
             password
         });
-        return response.json({"very":user.length==1?true:false});
+        return response.json({"very":user.length==1?true:false,"id":user.id});
     } 
 }
