@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
-import {View,TextInput,Text,TouchableOpacity} from 'react-native';
+import {View,TextInput,Text,TouchableOpacity,AsyncStorage} from 'react-native';
 import styles from '../Login/styles';
 import global from '../global';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
+import api from '../../services/api';
 export default function Login(){
     const navigation = useNavigation();
     const [name,setName] = useState('');
@@ -13,6 +14,18 @@ export default function Login(){
     }
     function navigateToHomeScreen(){
         navigation.navigate('Home');
+    }
+    function Logar(){
+        api.get('user/login',{name,password})
+        .then(response=>{
+            const {very} = response.data;
+            if(very){
+                navigateToHomeScreen();
+            }else{
+                alert('Username ou Password incorretos!!!');
+            }
+        })
+        .catch(err=>console.log(err));
     }
     return(
         <View style={styles.container}>
@@ -25,20 +38,20 @@ export default function Login(){
             <View style={styles.formSpace}>
                 <TextInput 
                     value={name}
-                    onChange={(text)=>setName(text)}
+                    onChangeText={(text)=>setName(text)}
                     placeholder="Username"
                     style={styles.input}
                 />
                 <TextInput 
                     value={password}
-                    onChange={(text)=>setPassword(text)}
+                    onChangeText={(text)=>setPassword(text)}
                     placeholder="Password"
                     style={styles.input}
                     secureTextEntry={true}
                 />
                 <TouchableOpacity 
                     style={styles.loginButton}
-                    onPress={navigateToHomeScreen}
+                    onPress={Logar}
                 >
                     <Feather name="log-in" size={28} color="yellow"/>
                     <Text style={styles.textLoginButton}>ENTRAR</Text>
