@@ -7,7 +7,7 @@ routes.get('/users/search',UserControlls.indexByEloAndRole);
 routes.get('/users',UserControlls.index);
 routes.post('/user',UserControlls.create);
 routes.get('/users/:role',UserControlls.indexRole);
-routes.get('/logar',UserControlls.Logar);
+routes.post('/logar',UserControlls.Logar);
 routes.get('/user',UserControlls.getUserByID);
 routes.get('/',(req,res)=>{
     const array = ["<h1>Rotas da aplicação</h1>"];
