@@ -1,7 +1,7 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const api = axios.create({
-    baseURL:'http://192.168.1.11:3333'
+    baseURL:'https://radiant-wave-41754.herokuapp.com/'
 });
 
 export default api;
