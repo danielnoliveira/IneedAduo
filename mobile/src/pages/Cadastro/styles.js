@@ -5,7 +5,12 @@ export default StyleSheet.create({
     container:{
         flex: 1,
         paddingHorizontal: 15,
-        backgroundColor: '#000',
+        backgroundColor: 'white',
+
+    },
+    scrollArea:{
+        flex:1,
+        backgroundColor:'white'
     },
     input: {
         width: 250,
@@ -21,7 +26,8 @@ export default StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        backgroundColor: 'white',
+        paddingVertical:50
       },
       cadastroButton:{
           backgroundColor: '#000',
@@ -41,9 +47,15 @@ export default StyleSheet.create({
       roleSelector:{
           height:50,
           width:150,
-          borderWidth: 5,
-          borderStyle:'solid',
-          borderBottomColor: '#000',
-          marginVertical: 20,
+
+      },
+      PickerBorder: {
+        flex:1,
+        borderWidth: 1,
+        borderStyle:'solid',
+        borderBottomColor: '#000',
+        borderRadius:20,
+        height:50,
+        marginVertical:14
       }
 });

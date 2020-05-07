@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {View,TextInput,Text,TouchableOpacity,Picker} from 'react-native';
+import {View,TextInput,Text,TouchableOpacity,Picker,KeyboardAvoidingView,Platform,ScrollView} from 'react-native';
 import styles from '../Cadastro/styles';
 import global from '../global';
 import {Feather} from '@expo/vector-icons';
@@ -59,12 +59,15 @@ export default function Login(){
         // }
     }
     return(
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={styles.container}>
+      <ScrollView style={styles.scrollArea}>
             <TouchableOpacity 
                     style={global.backButton}
                     onPress={navigateBack}
                 >
-                <Feather name="arrow-left" size={28} color="yellow"/>
+                <Feather name="arrow-left" size={28} color="black"/>
             </TouchableOpacity>
             <View style={styles.formSpace}>
                 <TextInput 
@@ -73,18 +76,21 @@ export default function Login(){
                     value={name}
                     style={styles.input}
                 />
-                <Picker
-                    selectedValue={role}
-                    style={styles.roleSelector}
-                    onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
-                >
-                    <Picker.Item label="Sua função" value=""/>
-                    <Picker.Item label="ADC" value="ADC" />
-                    <Picker.Item label="SUP" value="SUP" />
-                    <Picker.Item label="MID" value="MID" />
-                    <Picker.Item label="TOP" value="TOP" />
-                    <Picker.Item label="JUNGLER" value="JUNGLER" />
-                </Picker>
+                <View style={styles.PickerBorder}>
+
+                    <Picker
+                        style={styles.roleSelector}
+                        selectedValue={role}
+                        onValueChange={(itemValue, itemIndex) => setRole(itemValue)}
+                    >
+                        <Picker.Item label="Sua função" value=""/>
+                        <Picker.Item label="ADC" value="ADC" />
+                        <Picker.Item label="SUP" value="SUP" />
+                        <Picker.Item label="MID" value="MID" />
+                        <Picker.Item label="TOP" value="TOP" />
+                        <Picker.Item label="JUNGLER" value="JUNGLER" />
+                    </Picker>
+                </View>
                 <TextInput 
                     onChangeText={newEmail=>setEmail(newEmail)}
                     placeholder="Email"
@@ -119,6 +125,7 @@ export default function Login(){
                     <Text style={styles.textCadastroButton}>CADASTRAR</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
+    </KeyboardAvoidingView>
     );
 }
