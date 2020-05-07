@@ -5,7 +5,10 @@ export default StyleSheet.create({
     container:{
         flex: 1,
         paddingHorizontal: 15,
-        backgroundColor: '#000',
+        backgroundColor: 'white',
+    },
+    scrollArea:{
+        flex:1,
     },
     input: {
         width: 250,
@@ -20,15 +23,16 @@ export default StyleSheet.create({
     formSpace: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#ecf0f1',
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        marginVertical:200
       },
       loginButton:{
           backgroundColor: '#000',
           flexDirection: 'row',
           alignItems:'center',
           justifyContent:'space-around',
-          height:50,
+          height:60,
           width:150,
           paddingHorizontal:15,
           borderRadius:25,
