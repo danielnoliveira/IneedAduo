@@ -105,7 +105,7 @@ module.exports = {
         const {id} = request.body;
         
         const me = (await connection('users').
-        select(queue)
+        select('*')
         .where('id',id))[0];
         
         const rangeTier = GetRangeTier(me.tier_solo);
