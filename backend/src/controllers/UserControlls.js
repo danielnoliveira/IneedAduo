@@ -101,9 +101,10 @@ module.exports = {
         return response.json(usersByRole);
     },
     async indexByEloAndRole(request,response){
-        const {page = 1,role} = request.query;
-        const {id} = request.body;
-        
+        console.log('REQUISIÇÃO ACEITA');
+        const {page = 1,role,id} = request.query;
+        //const {id} = request.data;
+        console.log(`${id} ${role} ${page}`);
         const me = (await connection('users').
         select('*')
         .where('id',id))[0];
