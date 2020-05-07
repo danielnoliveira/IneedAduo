@@ -129,11 +129,11 @@ module.exports = {
         return response.json(players);
     },
     async Logar(request,response){
-        const {username,password} = request.body;
+        const {email,password} = request.body;
         const user = await connection('users')
         .select('*')
         .where({
-            username,
+            email,
             password
         });
         return response.json({"very":(user.length==1?true:false),"id":user[0].id});
