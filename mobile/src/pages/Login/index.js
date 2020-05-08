@@ -1,10 +1,11 @@
 import React,{useState} from 'react';
-import {View,TextInput,Text,TouchableOpacity,ScrollView,KeyboardAvoidingView,Platform} from 'react-native';
+import {View,TextInput,Text,TouchableOpacity,ScrollView,KeyboardAvoidingView,Platform,AsyncStorage} from 'react-native';
 import styles from '../Login/styles';
 import global from '../global';
 import {Feather} from '@expo/vector-icons';
 import {useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
+import storage from '../../services/storage';
 export default function Login(){
     const navigation = useNavigation();
     const [email,setEmail] = useState('');
@@ -22,6 +23,7 @@ export default function Login(){
         }).then(response=>{
             if (response.data.very) {
                 alert('Bem vindo usuario');
+                storage._storeData(response.data.id);
                 navigateToHomeScreen();
             }else{
                 alert("Email ou Senha incorretos!!!");
@@ -45,8 +47,10 @@ export default function Login(){
                         onChangeText={(text)=>setEmail(text)}
                         placeholder="Email"
                         style={styles.input}
+                        autoCapitalize={"none"}
                     />
                     <TextInput 
+                        autoCapitalize={"none"}
                         value={password}
                         onChangeText={(text)=>setPassword(text)}
                         placeholder="Password"
