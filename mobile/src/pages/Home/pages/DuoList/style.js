@@ -15,6 +15,7 @@ export default StyleSheet.create({
         alignItems:'center',
         borderBottomLeftRadius:50,
         borderBottomRightRadius:50,
+        
     },
     roleSelector:{
         width: 200,
@@ -42,13 +43,15 @@ export default StyleSheet.create({
         fontSize:18
     },
     playerList:{
-        padding:30,
-        marginVertical:11
+        marginVertical:10,
+        paddingHorizontal:30
     },
     ListItem:{
         backgroundColor:'yellow',
         marginVertical:10,
         height:100,
-        borderRadius:5
+        borderRadius:8,
+        borderColor:'white',
+        borderWidth:2
     }
 });
